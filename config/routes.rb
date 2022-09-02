@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get 'relationships/create'
-  get 'relationships/destroy'
+  get 'relationships/following'
+  get 'relationships/followers'
   get 'book_comments/create'
   get 'book_comments/destroy'
   get 'favorites/create'
@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :users, only: [:show, :index, :edit, :update] do
     resource :relationships, only: [:create, :destroy]
+    get 'following' => 'relationships#following', as: 'following'
+    get 'followers' => 'relationships#followers', as: 'followers'
   end
   resources :books, only: [:show, :index, :edit, :create, :update] do
     resources :book_comments, only:[:create, :destroy]
